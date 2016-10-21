@@ -381,6 +381,8 @@
     <Compile Include="Models\Rdbms\CountDto.cs" />
     <Compile Include="Models\Rdbms\DigitalMediaDto.cs" />
     <Compile Include="PagedCollection.cs" />
+    <Compile Include="Persistence\Migrations\Upgrades\TargetVersionTwoFourZero\AddShipZoneKeyColumn.cs" />
+    <Compile Include="Persistence\Migrations\Upgrades\TargetVersionTwoFourZero\CreateShipZoneTable.cs" />
     <Compile Include="Trees\FirstByValueTreeNodeVisitor.cs" />
     <Compile Include="Trees\ITreeNodeVisitor.cs" />
     <Compile Include="Trees\NodeAggregatorTreeNodeVisitor.cs" />
@@ -497,6 +499,7 @@
     <Compile Include="Models\Interfaces\IEntityFilterGroup.cs" />
     <Compile Include="Models\Interfaces\IHasNotes.cs" />
     <Compile Include="Models\Interfaces\INote.cs" />
+    <Compile Include="Models\Interfaces\IShipZone.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\EntityCollectionExtensions.cs" />
     <Compile Include="Models\Interfaces\ICurrencyFormat.cs" />
@@ -565,6 +568,7 @@
     <Compile Include="Models\Rdbms\EntityCollectionDto.cs" />
     <Compile Include="Models\Rdbms\ProductOptionAttributeShareDto.cs" />
     <Compile Include="Models\Rdbms\ProductVariantDetachedContentDto.cs" />
+    <Compile Include="Models\Rdbms\ShipZoneDto.cs" />
     <Compile Include="Models\ShipmentStatus.cs" />
     <Compile Include="Models\MonitorModels\INotifyModel.cs" />
     <Compile Include="Models\MonitorModels\MonitorModelExtensions.cs" />
@@ -583,6 +587,7 @@
     <Compile Include="Models\Rdbms\IPageableDto.cs" />
     <Compile Include="Models\Rdbms\ShipmentStatusDto.cs" />
     <Compile Include="Models\EntityFilterCollection.cs" />
+    <Compile Include="Models\ShipZone.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="NotificationExtensions.cs" />
     <Compile Include="Observation\IMonitor.cs" />

@@ -26,6 +26,9 @@
         [Column("name")]
         public string Name { get; set; }
 
+		[Column("shipZoneKey")]
+		[ForeignKey(typeof(ShipZoneDto), Name = "FK_merchCatalogCountry_merchShipZone", Column = "pk")]
+		public Guid ShipZoneKey { get; set; }
 
         [Column("updateDate")]
         [Constraint(Default = "getdate()")]

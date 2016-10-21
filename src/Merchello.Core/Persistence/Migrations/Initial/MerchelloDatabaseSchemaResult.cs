@@ -153,8 +153,13 @@
 				return new Version(2, 2, 0);
 	        }
 
-	        // If Errors is empty or if TableDefinitions tables + columns correspond to valid tables + columns then we're at current version
-            if (this.MerchelloErrors.Any() == false ||
+			if (!this.ValidTables.Contains("merchShipZone") || !this.ValidColumns.Contains("merchShipCountry,shipZoneKey"))
+			{
+				return new Version(2, 3, 0);
+			}
+
+			// If Errors is empty or if TableDefinitions tables + columns correspond to valid tables + columns then we're at current version
+			if (this.MerchelloErrors.Any() == false ||
                 (this.TableDefinitions.All(x => this.ValidTables.Contains(x.Name))
                  && this.TableDefinitions.SelectMany(definition => definition.Columns).All(x => this.ValidColumns.Contains(x.Name))))
                 return MerchelloVersion.Current;
