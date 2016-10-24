@@ -556,7 +556,7 @@
     <key alias="shippingMethods">Shipping Methods</key>
     <key alias="shippingMethodsHelper">Add shipping methods to existing regions or create a new region</key>
     <key alias="addZone" >Add a Zone</key>
-    <key alias="addCountry" >Add a Country</key>
+    <key alias="addCountry">Add a Country</key>
     <key alias="addCatalog">Add a Catalog</key>
     <key alias="selectCatalog">Select Catalog</key>
     <key alias="shippingProvidersMethodsTitle">Shipping Providers &amp; Methods</key>
