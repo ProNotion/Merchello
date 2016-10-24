@@ -555,7 +555,8 @@
     <key alias="editWarehouse">Edita el almacén</key>
     <key alias="shippingMethods">Métodos de envío</key>
     <key alias="shippingMethodsHelper">Añade métodos de envío a regiones existentes o crea una nueva región</key>
-    <key alias="addCountry">Añade un País</key>
+	<key alias="addZone" >Add a Zone</key>
+	<key alias="addCountry">Añade un País</key>
     <key alias="addCatalog">Add a Catalog</key>
     <key alias="selectCatalog">Select Catalog</key>
     <key alias="shippingProvidersMethodsTitle">Shipping Providers &amp; Methods</key>
@@ -606,7 +607,11 @@
     <key alias="typeCountryName">Escribe el nombre del país</key>
     <key alias="noneSelected">-- Selecciona un país --</key>
   </area>
-  <area alias="merchelloShippingWarehouse">
+	<area alias="merchelloShippingZone">
+		<key alias="addZone">Add a Zone</key>
+		<key alias="typeZoneName" >Type your Zone Name</key>
+	</area>
+	<area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm">Estás seguro de que deseas eliminar el almacén?</key>
     <key alias="address">Dirección</key>
     <key alias="primaryWarehouse">Almacen principal</key>

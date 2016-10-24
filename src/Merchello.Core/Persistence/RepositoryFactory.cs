@@ -2,7 +2,6 @@
 {
     using System;
 
-    using Cache;
     using Repositories;    
     using Services;
 
@@ -541,17 +540,29 @@
             return new ShipCountryRepository(uow, _cacheHelper, storeSettingService, _logger, _sqlSyntax);
         }
 
+		/// <summary>
+		/// Creates the ship zone repository.
+		/// </summary>
+		/// <param name="uow">The database unit of work.</param>
+		/// <param name="storeSettingService">The store setting service.</param>
+		/// <returns>
+		/// The <see cref="IShipZoneRepository"/>.
+		/// </returns>
+		internal virtual IShipZoneRepository CreateShipZoneRepository(IDatabaseUnitOfWork uow, IStoreSettingService storeSettingService)
+		{
+			return new ShipZoneRepository(uow, _cacheHelper, storeSettingService, _logger, _sqlSyntax);
+		}
 
-        /// <summary>
-        /// Returns an instance of the <see cref="IShipMethodRepository"/>
-        /// </summary>
-        /// <param name="uow">
-        /// The database unit of work
-        /// </param>
-        /// <returns>
-        /// The <see cref="IShipMethodRepository"/>.
-        /// </returns>
-        internal virtual IShipMethodRepository CreateShipMethodRepository(IDatabaseUnitOfWork uow)
+		/// <summary>
+		/// Returns an instance of the <see cref="IShipMethodRepository"/>
+		/// </summary>
+		/// <param name="uow">
+		/// The database unit of work
+		/// </param>
+		/// <returns>
+		/// The <see cref="IShipMethodRepository"/>.
+		/// </returns>
+		internal virtual IShipMethodRepository CreateShipMethodRepository(IDatabaseUnitOfWork uow)
         {
             return new ShipMethodRepository(uow, _cacheHelper, _logger, _sqlSyntax);
         }

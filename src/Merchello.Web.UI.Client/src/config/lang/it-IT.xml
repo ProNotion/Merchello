@@ -555,7 +555,8 @@
     <key alias="editWarehouse">Impostazioni del magazzino</key>
     <key alias="shippingMethods">Metodi di spedizione</key>
     <key alias="shippingMethodsHelper">Aggiungi metodi di spedizione per Regioni già presenti o aggiungi nuove regioni</key>
-    <key alias="addCountry">Aggiungi una nazione</key>
+	<key alias="addZone" >Add a Zone</key>
+	<key alias="addCountry">Aggiungi una nazione</key>
     <key alias="addCatalog">Add a Catalog</key>
     <key alias="selectCatalog">Select Catalog</key>
     <key alias="shippingProvidersMethodsTitle">Shipping Providers &amp; Methods</key>
@@ -606,7 +607,11 @@
     <key alias="typeCountryName">Nome del tipo della naizone</key>
     <key alias="noneSelected">-- seleziona una nazione --</key>
   </area>
-  <area alias="merchelloShippingWarehouse">
+	<area alias="merchelloShippingZone">
+		<key alias="addZone">Add a Zone</key>
+		<key alias="typeZoneName" >Type your Zone Name</key>
+	</area>
+	<area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm">Sicuro di voler togliere il magazzino?</key>
     <key alias="address">Indirizzo</key>
     <key alias="primaryWarehouse">Magazzino principale</key>

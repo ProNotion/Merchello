@@ -3692,6 +3692,24 @@ angular.module('merchello.models').constant('InvoiceItemItemizationDisplay', Inv
 
     angular.module('merchello.models').constant('ShipProvinceDisplay', ShipProvinceDisplay);
     /**
+     * @ngdoc model
+     * @name ShipZoneDisplay
+     * @function
+     *
+     * @description
+     * Represents a JS version of Merchello's ShipCountryDisplay object
+     */
+var ShipZoneDisplay = function () {
+        var self = this;
+        self.key = '';
+        self.catalogKey = '';
+        self.zoneCode = '';
+        self.name = '';
+        self.countries = [];
+    };
+
+    angular.module('merchello.models').constant('ShipZoneDisplay', ShipZoneDisplay);
+    /**
     * @ngdoc model
     * @name ShipmentDisplay
     * @function
@@ -6583,6 +6601,40 @@ angular.module('merchello.models').factory('shipRateTierDisplayBuilder',
             };
         }]);
 
+/**
+    * @ngdoc service
+    * @name merchello.models.shipZoneDisplayBuilder
+    *
+    * @description
+    * A utility service that builds ShipZoneDisplay models
+    */
+angular.module('merchello.models')
+	.factory('shipZoneDisplayBuilder',
+	[
+		'genericModelBuilder', 'shipCountryDisplayBuilder', 'ShipZoneDisplay',
+		function(genericModelBuilder, shipCountryDisplayBuilder, ShipZoneDisplay) {
+			var Constructor = ShipZoneDisplay;
+			return {
+				createDefault: function() {
+					return new Constructor();
+				},
+				transform: function(jsonResult) {
+					if (jsonResult === undefined || jsonResult === null) {
+						return;
+					}
+					var zones = genericModelBuilder.transform(jsonResult, Constructor);
+					if (angular.isArray(jsonResult)) {
+						for (var i = 0; i < jsonResult.length; i++) {
+							zones[i].countries = shipCountryDisplayBuilder.transform(jsonResult[i].countries);
+						}
+					} else {
+						zones.countries = shipCountryDisplayBuilder.transform(jsonResult.countries);
+					}
+					return zones;
+				}
+			};
+		}
+	]);
     /**
      * @ngdoc service
      * @name merchello.models.shipmentDisplayBuilder

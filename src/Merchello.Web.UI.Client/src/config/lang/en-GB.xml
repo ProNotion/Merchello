@@ -555,7 +555,8 @@
     <key alias="editWarehouse">Edit Warehouse</key>
     <key alias="shippingMethods">Shipping Methods</key>
     <key alias="shippingMethodsHelper">Add shipping methods to existing regions or create a new region</key>
-    <key alias="addCountry">Add a Country</key>
+    <key alias="addZone" >Add a Zone</key>
+    <key alias="addCountry" >Add a Country</key>
     <key alias="addCatalog">Add a Catalog</key>
     <key alias="selectCatalog">Select Catalog</key>
     <key alias="shippingProvidersMethodsTitle">Shipping Providers &amp; Methods</key>
@@ -603,8 +604,12 @@
 
   <area alias="merchelloShippingCountry">
     <key alias="addCountry">Add a Country</key>
-    <key alias="typeCountryName">Type your Country Name</key>
-    <key alias="noneSelected">-- none selected --</key>
+    <key alias="typeCountryName" >Type your Country Name</key>
+    <key alias="noneSelected" >-- none selected --</key>
+  </area>
+  <area alias="merchelloShippingZone">
+  	<key alias="addZone">Add a Zone</key>
+  	<key alias="typeZoneName" >Type your Zone Name</key>
   </area>
   <area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm">Are you sure you want to remove the warehouse</key>

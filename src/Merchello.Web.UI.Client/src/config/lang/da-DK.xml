@@ -555,6 +555,7 @@
     <key alias="editWarehouse">Redigér lager</key>
     <key alias="shippingMethods">Forsendelsesmuligheder</key>
     <key alias="shippingMethodsHelper">Tilføj forsendelsesmuligheder til eksisterende regioner eller opret en ny region</key>
+    <key alias="addZone" >Add a Zone</key>
     <key alias="addCountry">Tilføj et land</key>
     <key alias="addCatalog">Tilføj et katalog</key>
     <key alias="selectCatalog">Vælg katalog</key>
@@ -605,6 +606,10 @@
     <key alias="addCountry">Tilføj et land</key>
     <key alias="typeCountryName">Skriv landenavn</key>
     <key alias="noneSelected">-- ingen valgt --</key>
+  </area>
+  <area alias="merchelloShippingZone">
+    <key alias="addZone">Add a Zone</key>
+    <key alias="typeZoneName" >Type your Zone Name</key>
   </area>
   <area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm">Er du sikker på at du vil fjerne lageret?</key>
