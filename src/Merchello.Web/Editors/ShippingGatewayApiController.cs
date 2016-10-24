@@ -36,6 +36,11 @@
         /// </summary>
         private readonly IShipCountryService _shipCountryService;
 
+		/// <summary>
+		/// The ship zone service
+		/// </summary>
+		private readonly IShipZoneService _shipZoneService;
+
         #endregion
 
         /// <summary>
@@ -58,21 +63,23 @@
             _shippingContext = MerchelloContext.Gateways.Shipping;
 
             _shipCountryService = ((ServiceContext)MerchelloContext.Services).ShipCountryService;
+            _shipZoneService = ((ServiceContext)MerchelloContext.Services).ShipZoneService;
         }
 
+		#region Shipping Countries
 
-        /// <summary>
-        /// Returns ShipCountry by id (key)
-        /// 
-        /// GET /umbraco/Merchello/ShippingMethodsApi/GetShipCountry/{guid}
-        /// </summary>
-        /// <param name="id">
-        /// Key of the ShipCountry to retrieve
-        /// </param>
-        /// <returns>
-        /// The <see cref="ShipCountryDisplay"/>.
-        /// </returns>
-        public ShipCountryDisplay GetShipCountry(Guid id)
+		/// <summary>
+		/// Returns ShipCountry by id (key)
+		/// 
+		/// GET /umbraco/Merchello/ShippingMethodsApi/GetShipCountry/{guid}
+		/// </summary>
+		/// <param name="id">
+		/// Key of the ShipCountry to retrieve
+		/// </param>
+		/// <returns>
+		/// The <see cref="ShipCountryDisplay"/>.
+		/// </returns>
+		public ShipCountryDisplay GetShipCountry(Guid id)
         {
             var shipCountry = _shipCountryService.GetByKey(id);
 
@@ -145,18 +152,18 @@
             return newShipCountry.ToShipCountryDisplay();
         }
 
-        /// <summary>
-        /// Deletes an existing ship country
-        /// 
-        /// GET /umbraco/Merchello/ShippingMethodsApi/DeleteShipCountry/{guid}
-        /// </summary>
-        /// <param name="id">
-        /// ShipCountry Key
-        /// </param>
-        /// <returns>
-        /// The <see cref="HttpResponseMessage"/>.
-        /// </returns>
-        [AcceptVerbs("GET")]
+		/// <summary>
+		/// Deletes an existing ship country
+		/// 
+		/// GET /umbraco/Merchello/ShippingMethodsApi/DeleteShipCountry/{guid}
+		/// </summary>
+		/// <param name="id">
+		/// ShipCountry Key
+		/// </param>
+		/// <returns>
+		/// The <see cref="HttpResponseMessage"/>.
+		/// </returns>
+		[AcceptVerbs("GET")]
         public HttpResponseMessage DeleteShipCountry(Guid id)
         {
             var shipCountryToDelete = _shipCountryService.GetByKey(id);
@@ -170,16 +177,116 @@
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+		#endregion
 
-        /// <summary>
-        /// 
-        /// 
-        /// GET /umbraco/Merchello/ShippingMethodsApi/GetAllShipGatewayProviders
-        /// </summary>
-        /// <returns>
-        /// The collection of all <see cref="GatewayProviderDisplay"/>.
-        /// </returns>
-        public IEnumerable<ShippingGatewayProviderDisplay> GetAllShipGatewayProviders()
+		#region Shipping Zones
+
+		/// <summary>
+		/// Creates a ship zone
+		/// 
+		/// GET /umbraco/Merchello/ShippingMethodsApi/NewShipzone?catalogKey={guid}&amp;zoneName={string}
+		/// </summary>
+		/// <param name="catalogKey">
+		/// CatalogKey Guid
+		/// </param>
+		/// <param name="zoneName">
+		/// zone name string
+		/// </param>
+		/// <returns>
+		/// The <see cref="ShipZoneDisplay"/>.
+		/// </returns>        
+		[AcceptVerbs("GET", "POST")]
+		public ShipZoneDisplay NewShipzone(Guid catalogKey, string zoneName)
+		{
+			ShipZone newShipzone = null;
+
+			try
+			{
+				var attempt = ((ShipZoneService)_shipZoneService).CreateShipZoneWithKey(catalogKey, zoneName);
+				if (attempt.Success)
+				{
+					newShipzone = attempt.Result as ShipZone;
+				}
+				else
+				{
+					throw attempt.Exception;
+				}
+			}
+			catch (Exception ex)
+			{
+				throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.InternalServerError));
+			}
+
+			return newShipzone.ToShipZoneDisplay();
+		}
+
+		/// <summary>
+		/// Gets all ship zones.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns></returns>
+		/// <exception cref="HttpResponseException"></exception>
+		public IEnumerable<ShipZoneDisplay> GetAllShipZones(Guid id)
+		{
+			var zones = this._shipZoneService.GetShipZonesByCatalogKey(id);
+			if (zones == null)
+			{
+				throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+			}
+
+			return zones.Select(zone => zone.ToShipZoneDisplay());
+		}
+
+		/// <summary>
+		/// Gets the ship zone.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns></returns>
+		/// <exception cref="HttpResponseException"></exception>
+		public ShipZoneDisplay GetShipZone(Guid id)
+		{
+			var shipZone = this._shipZoneService.GetByKey(id);
+
+			if (shipZone == null)
+			{
+				throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+			}
+
+			return shipZone.ToShipZoneDisplay();
+		}
+
+		/// <summary>
+		/// Deletes the ship zone.
+		/// </summary>
+		/// <param name="id">The ShipZone key.</param>
+		/// <returns>
+		/// The <see cref="HttpResponseMessage"/>.
+		/// </returns>
+		[AcceptVerbs("GET")]
+		public HttpResponseMessage DeleteShipZone(Guid id)
+		{
+			var shipZoneToDelete = _shipZoneService.GetByKey(id);
+			if (shipZoneToDelete == null)
+			{
+				return Request.CreateResponse(HttpStatusCode.NotFound);
+			}
+
+			_shipZoneService.Delete(shipZoneToDelete);
+
+			return Request.CreateResponse(HttpStatusCode.OK);
+		}
+
+		#endregion
+
+		/// <summary>
+		/// 
+		/// 
+		/// GET /umbraco/Merchello/ShippingMethodsApi/GetAllShipGatewayProviders
+		/// </summary>
+		/// <returns>
+		/// The collection of all <see cref="GatewayProviderDisplay"/>.
+		/// </returns>
+		public IEnumerable<ShippingGatewayProviderDisplay> GetAllShipGatewayProviders()
         {
             var providers = MerchelloContext.Gateways.Shipping.GetAllActivatedProviders().ToArray();
 
