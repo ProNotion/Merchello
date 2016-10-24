@@ -381,8 +381,14 @@
     <Compile Include="Models\Rdbms\CountDto.cs" />
     <Compile Include="Models\Rdbms\DigitalMediaDto.cs" />
     <Compile Include="PagedCollection.cs" />
+    <Compile Include="Persistence\Factories\ShipZoneFactory.cs" />
+    <Compile Include="Persistence\Mappers\ShipZoneMapper.cs" />
     <Compile Include="Persistence\Migrations\Upgrades\TargetVersionTwoFourZero\AddShipZoneKeyColumn.cs" />
     <Compile Include="Persistence\Migrations\Upgrades\TargetVersionTwoFourZero\CreateShipZoneTable.cs" />
+    <Compile Include="Persistence\Repositories\Interfaces\IShipZoneRepository.cs" />
+    <Compile Include="Persistence\Repositories\ShipZoneRepository.cs" />
+    <Compile Include="Services\Interfaces\IShipZoneService.cs" />
+    <Compile Include="Services\ShipZoneService.cs" />
     <Compile Include="Trees\FirstByValueTreeNodeVisitor.cs" />
     <Compile Include="Trees\ITreeNodeVisitor.cs" />
     <Compile Include="Trees\NodeAggregatorTreeNodeVisitor.cs" />

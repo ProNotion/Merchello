@@ -547,7 +547,8 @@
       <key alias="editWarehouse" >Изменить склад</key>
       <key alias="shippingMethods" >Способы доставки</key>
       <key alias="shippingMethodsHelper" >Добавить способы доставки в имеющийся регион или создать новый регион</key>
-      <key alias="addCountry" >Добавить страну</key>
+	  <key alias="addZone" >Add a Zone</key>
+	  <key alias="addCountry" >Добавить страну</key>
       <key alias="addCatalog">Добавить каталог</key>
       <key alias="selectCatalog">Выбрать каталог</key>
       <key alias="shippingProvidersMethodsTitle">Провайдеры и способы доставки</key>
@@ -597,7 +598,11 @@
     <key alias="typeCountryName" >Наберите название страны</key>
     <key alias="noneSelected" >-- не выбрано --</key>
   </area>
-  <area alias="merchelloShippingWarehouse">
+	<area alias="merchelloShippingZone">
+		<key alias="addZone">Add a Zone</key>
+		<key alias="typeZoneName" >Type your Zone Name</key>
+	</area>
+	<area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm" >Вы уверены, что хотите удалить склад </key>
     <key alias="address">Адрес</key>
     <key alias="primaryWarehouse" >Главный склад</key>

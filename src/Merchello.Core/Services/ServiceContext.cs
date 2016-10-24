@@ -147,10 +147,15 @@
         /// </summary>
         private Lazy<IShipCountryService> _shipCountryService;
 
-        /// <summary>
-        /// The ship method service.
-        /// </summary>
-        private Lazy<IShipMethodService> _shipMethodService;
+		/// <summary>
+		/// The ship zone service
+		/// </summary>
+		private Lazy<IShipZoneService> _shipZoneService;
+
+		/// <summary>
+		/// The ship method service.
+		/// </summary>
+		private Lazy<IShipMethodService> _shipMethodService;
 
         /// <summary>
         /// The ship rate tier service.
@@ -361,10 +366,15 @@
             get { return _shipCountryService.Value; }
         }
 
-        /// <summary>
-        /// Gets the <see cref="IShipmentService"/>
-        /// </summary>
-        public IShipmentService ShipmentService
+		public IShipZoneService ShipZoneService
+		{
+			get { return _shipZoneService.Value; }
+		}
+
+		/// <summary>
+		/// Gets the <see cref="IShipmentService"/>
+		/// </summary>
+		public IShipmentService ShipmentService
         {
             get { return _shipmentService.Value; }
         }
@@ -566,7 +576,10 @@
             if (_shipCountryService == null)
                 _shipCountryService = new Lazy<IShipCountryService>(() => new ShipCountryService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory, _storeSettingsService.Value));
 
-            if (_shipMethodService == null)
+			if (_shipZoneService == null)
+				_shipZoneService = new Lazy<IShipZoneService>(() => new ShipZoneService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory, _storeSettingsService.Value));
+
+			if (_shipMethodService == null)
                 _shipMethodService = new Lazy<IShipMethodService>(() => new ShipMethodService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory));
 
             if (_shipRateTierService == null)

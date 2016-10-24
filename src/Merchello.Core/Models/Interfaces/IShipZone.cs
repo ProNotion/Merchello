@@ -2,13 +2,37 @@
 namespace Merchello.Core.Models.Interfaces
 {
 	using System;
-	using System.Collections.Generic;
-	using System.Globalization;
-	using System.Runtime.Serialization;
+
+	using Merchello.Core.Models.EntityBase;
 
 	/// <summary>
-	/// An interface to use for any shipping zones which are used to group IShipCountry instances
+	/// An interface to use for any shipping zones
 	/// </summary>
-	/// <seealso cref="Merchello.Core.Models.IShipCountry" />
-	public interface IShipZone { }
+	/// <seealso cref="IShipZone" />
+	public interface IShipZone : IEntity
+	{
+		/// <summary>
+		/// Gets or sets the name of the shipping zone.
+		/// </summary>
+		/// <value>
+		/// The name of the shipping zone.
+		/// </value>
+		string Name { get; set; }
+
+		/// <summary>
+		/// Gets or sets the catalog key.
+		/// </summary>
+		/// <value>
+		/// The catalog key.
+		/// </value>
+		Guid CatalogKey { get; }
+
+		/// <summary>
+		/// Gets or sets the unique zone code.
+		/// </summary>
+		/// <value>
+		/// The zone code.
+		/// </value>
+		string ZoneCode { get; set; }
+	}
 }

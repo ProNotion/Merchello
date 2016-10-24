@@ -48,6 +48,14 @@
 		#endregion
 
 
+		#region ShipZoneDisplay
+
+		internal static ShipZoneDisplay ToShipZoneDisplay(this IShipZone shipZone)
+		{
+			return AutoMapper.Mapper.Map<ShipZoneDisplay>(shipZone);
+		}
+
+		#endregion
 
 		#region ShipCountryDisplay
 

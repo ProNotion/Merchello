@@ -9,15 +9,16 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
     ['$scope', 'notificationsService', 'dialogService', 'merchelloTabsFactory',
     'settingsResource', 'warehouseResource', 'shippingGatewayProviderResource', 'dialogDataFactory',
     'settingDisplayBuilder', 'warehouseDisplayBuilder', 'warehouseCatalogDisplayBuilder', 'countryDisplayBuilder',
-        'shippingGatewayProviderDisplayBuilder', 'shipCountryDisplayBuilder',
+        'shippingGatewayProviderDisplayBuilder', 'shipCountryDisplayBuilder', 'shipZoneDisplayBuilder',
     function($scope, notificationsService, dialogService, merchelloTabsFactory,
              settingsResource, warehouseResource, shippingGatewayProviderResource, dialogDataFactory,
              settingDisplayBuilder, warehouseDisplayBuilder, warehouseCatalogDisplayBuilder, countryDisplayBuilder,
-             shippingGatewayProviderDisplayBuilder, shipCountryDisplayBuilder) {
+             shippingGatewayProviderDisplayBuilder, shipCountryDisplayBuilder, shipZoneDisplayBuilder) {
 
         $scope.loaded = true;
         $scope.tabs = [];
         $scope.countries = [];
+        $scope.zones = [];
         $scope.warehouses = [];
         $scope.primaryWarehouse = {};
         $scope.selectedCatalog = {};
@@ -32,7 +33,9 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
 
         // exposed methods
         $scope.loadCountries = loadCountries;
+        $scope.loadZones = loadZones;
         $scope.addCountry = addCountry;
+        $scope.addZone = addZone;
         $scope.deleteCountryDialog = deleteCountryDialog;
         $scope.addEditWarehouseDialogOpen = addEditWarehouseDialogOpen;
         $scope.addEditWarehouseCatalogDialogOpen = addEditWarehouseCatalogDialogOpen;
@@ -117,6 +120,35 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
             }
         }
 
+    	/**
+         * @ngdoc method
+         * @name loadCountries
+         * @function
+         *
+         * @description
+         * Load the countries from the shipping service, then wrap the results
+         * in Merchello models and add to the scope via the countries collection.
+         * Once loaded, it calls the loadCountryProviders method for each
+         * country.
+         */
+        function loadZones() {
+        	if ($scope.primaryWarehouse.warehouseCatalogs.length > 0) {
+        		var catalogKey = $scope.selectedCatalog.key;
+        		var promiseShipZones = shippingGatewayProviderResource.getWarehouseCatalogShippingZones(catalogKey);
+        		promiseShipZones.then(function (shipZones) {
+        			var transformed = shipZoneDisplayBuilder.transform(shipZones);
+        			$scope.zones = _.sortBy(
+                        transformed, function (zone) {
+                        	return zone.name;
+                        });
+        			$scope.loaded = true;
+        			$scope.preValuesLoaded = true;
+        		}, function (reason) {
+        			notificationsService.error("Shipping Zones Load Failed", reason.message);
+        		});
+        	}
+        }
+
         //--------------------------------------------------------------------------------------
         // Helper methods
         //--------------------------------------------------------------------------------------
@@ -169,7 +201,47 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
         // Dialog methods
         //--------------------------------------------------------------------------------------
 
-        /**
+    	/**
+		 * @ngdoc method
+		 * @name addZone
+		 * @function
+		 *
+		 * @description
+		 * Opens the add zone dialog via the Umbraco dialogService.
+		 */
+	    function addZone() {
+
+		    // construct the dialog data for the add ship country dialog
+		    var dialogData = dialogDataFactory.createAddShipCountryDialogData();
+
+		    dialogService.open({
+			    template: '/App_Plugins/Merchello/Backoffice/Merchello/Dialogs/shipping.addzone.html',
+			    show: true,
+			    callback: addZoneDialogConfirm,
+			    dialogData: dialogData
+		    });
+	    }
+
+    	/**
+		 * @ngdoc method
+		 * @name addZoneDialogConfirm
+		 * @function
+		 *
+		 * @description
+		 * Handles the save after recieving the zone to add from the dialog view/controller
+		 */
+	    function addZoneDialogConfirm(dialogData) {
+	    	$scope.preValuesLoaded = false;
+	    	var catalogKey = $scope.selectedCatalog.key;
+	    	var promiseShipZones = shippingGatewayProviderResource.newWarehouseCatalogShippingZone(catalogKey, dialogData.zoneName);
+	    	promiseShipZones.then(function () {
+			    loadCountries();
+		    }, function (reason) {
+	    		notificationsService.error("Failed to create shipping zone!", reason.message);
+	    	});
+	    }
+
+	    /**
          * @ngdoc method
          * @name addCountry
          * @function

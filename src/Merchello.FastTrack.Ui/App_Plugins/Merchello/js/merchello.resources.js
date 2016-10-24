@@ -2524,6 +2524,17 @@ angular.module('merchello.resources')
                         'Failed to create ship country: ' + countryCode);
                 },
 
+                newWarehouseCatalogShippingZone: function (catalogKey, zoneName) {
+                	var url = Umbraco.Sys.ServerVariables['merchelloUrls']['merchelloShippingGatewayApiBaseUrl'] + 'NewShipZone';
+                	return umbRequestHelper.resourcePromise(
+                        $http({
+                        	url: url,
+                        	method: "GET",
+                        	params: { catalogKey: catalogKey, zoneName: zoneName }
+                        }),
+                        'Failed to create ship zone: ' + zoneName);
+                },
+
                 saveShipMethod: function (shipMethod) {
 
                     if (shipMethod.key === '') {

@@ -311,10 +311,28 @@ namespace Merchello.Tests.UnitTests.Mappers
             Assert.AreSame(expected, resolved.Result.GetType());
         }
 
-        /// <summary>
-        /// Test to verify <see cref="MerchelloMapper"/> correctly maps IShipCountry to ShipCountryMapper
-        /// </summary>
-        [Test]
+
+		/// <summary>
+		/// Test to verify <see cref="MerchelloMapper"/> correctly maps <see cref="IShipZone"/> to <see cref="ShipZoneMapper"/>
+		/// </summary>
+		[Test]
+		public void Mapper_Resolves_IShipZone_To_ShipZoneMapper()
+		{
+			//// Arrage
+			var expected = typeof(ShipZoneMapper);
+
+			//// Act
+			var resolved = MerchelloMapper.Current.ResolveByType(typeof(IShipZone));
+
+			//// Assert
+			Assert.IsTrue(resolved.Success);
+			Assert.AreSame(expected, resolved.Result.GetType());
+		}
+
+		/// <summary>
+		/// Test to verify <see cref="MerchelloMapper"/> correctly maps IShipCountry to ShipCountryMapper
+		/// </summary>
+		[Test]
         public void Mapper_Resolves_IShipRateTier_To_ShipRateTierMapper()
         {
 

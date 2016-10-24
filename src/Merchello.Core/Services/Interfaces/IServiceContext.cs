@@ -86,10 +86,18 @@
         /// </summary>
         IShipCountryService ShipCountryService { get; }
 
-        /// <summary>
-        /// Gets the <see cref="IStoreSettingService"/>
-        /// </summary>
-        IStoreSettingService StoreSettingService { get; }
+		/// <summary>
+		/// Gets the ship zone service.
+		/// </summary>
+		/// <value>
+		/// The ship zone service.
+		/// </value>
+		IShipZoneService ShipZoneService { get; }
+
+		/// <summary>
+		/// Gets the <see cref="IStoreSettingService"/>
+		/// </summary>
+		IStoreSettingService StoreSettingService { get; }
 
         /// <summary>
         /// Gets the <see cref="IShipmentService"/>
