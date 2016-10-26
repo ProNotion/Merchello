@@ -13,9 +13,15 @@
 	/// <seealso cref="Merchello.Core.Models.Interfaces.IShipZone" />
 	public class ShipZone : Entity, IShipZone
 	{
-		private Guid _catalogKey;
+		/// <summary>
+		/// The property selectors.
+		/// </summary>
+		private static readonly Lazy<PropertySelectors> _ps = new Lazy<PropertySelectors>();
 
-		private static readonly PropertyInfo CatalogKeySelector = ExpressionHelper.GetPropertyInfo<ShipZone, Guid>(x => x.CatalogKey);
+		/// <summary>
+		/// The catalog key
+		/// </summary>
+		private Guid _catalogKey;
 
 		/// <summary>
 		/// The warehouse catalog key
@@ -26,7 +32,7 @@
 			get { return _catalogKey; }
 			internal set
 			{
-				SetPropertyValueAndDetectChanges(value, ref _catalogKey, CatalogKeySelector);
+				SetPropertyValueAndDetectChanges(value, ref _catalogKey, _ps.Value.CatalogKeySelector);
 			}
 		}
 
@@ -56,6 +62,14 @@
 			this.CatalogKey = catalogKey;
 			this.Name = zoneName;
 			this.ZoneCode = Guid.NewGuid().ToString();
+		}
+
+		private class PropertySelectors
+		{
+			/// <summary>
+			/// The catalog key selector.
+			/// </summary>
+			public readonly PropertyInfo CatalogKeySelector = ExpressionHelper.GetPropertyInfo<ShipZone, Guid>(x => x.CatalogKey);
 		}
 	}
 }
