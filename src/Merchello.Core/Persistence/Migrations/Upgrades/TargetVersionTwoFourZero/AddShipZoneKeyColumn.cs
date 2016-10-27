@@ -36,7 +36,7 @@ namespace Merchello.Core.Persistence.Migrations.Upgrades.TargetVersionTwoFourZer
 
 		public override void Down()
 		{
-			throw new NotImplementedException();
+			throw new DataLossException("Cannot downgrade from a version 2.4.0 database to a prior version, the database schema has already been modified");
 		}
 	}
 }

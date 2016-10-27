@@ -119,7 +119,7 @@
 		public ShipZoneService(IDatabaseUnitOfWorkProvider provider, RepositoryFactory repositoryFactory, ILogger logger, IEventMessagesFactory eventMessagesFactory, IStoreSettingService storeSettingService)
             : base(provider, repositoryFactory, logger, eventMessagesFactory)
         {
-            Mandate.ParameterNotNull(storeSettingService, "storeSettingService");
+            Ensure.ParameterNotNull(storeSettingService, "storeSettingService");
             _storeSettingService = storeSettingService;
         }
 
@@ -136,7 +136,7 @@
 		/// </returns>
 		internal Attempt<IShipZone> CreateShipZoneWithKey(Guid warehouseCatalogKey, string zoneName, bool raiseEvents = true)
         {
-            Mandate.ParameterCondition(warehouseCatalogKey != Guid.Empty, "warehouseCatalog");
+			Ensure.ParameterCondition(warehouseCatalogKey != Guid.Empty, "warehouseCatalog");
             if (string.IsNullOrEmpty(zoneName)) return Attempt<IShipZone>.Fail(new ArgumentNullException("zoneName"));
 
             var shipZone = new ShipZone(warehouseCatalogKey, zoneName);
