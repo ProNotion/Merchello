@@ -22,7 +22,7 @@ namespace Merchello.Core.Persistence.Factories
                 new Country(Constants.CountryCodes.EverywhereElse, new List<IProvince>()) : 
                 _storeSettingService.GetCountryByCode(dto.CountryCode);
 
-            var shipCountry = new ShipCountry(dto.CatalogKey, country)
+            var shipCountry = new ShipCountry(dto.CatalogKey, dto.ShipZoneKey, country)
             {
                 Key = dto.Key,
                 UpdateDate = dto.UpdateDate,

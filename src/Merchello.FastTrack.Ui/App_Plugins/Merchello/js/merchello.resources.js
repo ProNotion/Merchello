@@ -2513,13 +2513,13 @@ angular.module('merchello.resources')
                         'Failed to retreive shipping country data for warehouse catalog');
                 },
 
-                newWarehouseCatalogShippingCountry: function (catalogKey, countryCode) {
+                newWarehouseCatalogShippingCountry: function (catalogKey, zoneKey, countryCode) {
                     var url = Umbraco.Sys.ServerVariables['merchelloUrls']['merchelloShippingGatewayApiBaseUrl'] + 'NewShipCountry';
                     return umbRequestHelper.resourcePromise(
                         $http({
                             url: url,
                             method: "GET",
-                            params: { catalogKey: catalogKey, countryCode: countryCode }
+                            params: { catalogKey: catalogKey, zoneKey: zoneKey, countryCode: countryCode }
                         }),
                         'Failed to create ship country: ' + countryCode);
                 },
@@ -2546,8 +2546,17 @@ angular.module('merchello.resources')
                             shipMethod
                         ),
                         'Failed to save ship method');
+                },
+                getWarehouseCatalogShippingZones: function (id) {
+                	var url = Umbraco.Sys.ServerVariables['merchelloUrls']['merchelloShippingGatewayApiBaseUrl'] + 'GetAllShipZones';
+                	return umbRequestHelper.resourcePromise(
+                        $http({
+                        	url: url,
+                        	method: "GET",
+                        	params: { id: id }
+                        }),
+                        'Failed to retreive shipping zone data for warehouse catalog');
                 }
-
             };
         }]);
 

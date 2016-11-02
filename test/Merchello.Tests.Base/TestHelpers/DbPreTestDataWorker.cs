@@ -494,11 +494,39 @@ namespace Merchello.Tests.Base.TestHelpers
             }
         }
 
-        #endregion
+		#endregion
 
-        #region ShipCountry
+		#region ShipZone
 
-        public void DeleteAllShipCountries()
+		/// <summary>
+		/// Deletes all ship zones.
+		/// </summary>
+		public void DeleteAllShipZones()
+		{
+			var shipCountries = ((ShipZoneService)ShipZoneService).GetAllShipZones();
+			foreach (var zone in shipCountries.Where(x => !x.Key.Equals(global::Merchello.Core.Constants.CountryCodes.EverywhereElse)))
+			{
+				ShipZoneService.Delete(zone);
+			}
+
+		}
+
+		/// <summary>
+		/// Gets the ship zone service.
+		/// </summary>
+		/// <value>
+		/// The ship zone service.
+		/// </value>
+		public IShipZoneService ShipZoneService
+		{
+			get { return _serviceContext.ShipZoneService; }
+		}
+
+		#endregion
+
+		#region ShipCountry
+
+		public void DeleteAllShipCountries()
         {
             var shipCountries = ((ShipCountryService)ShipCountryService).GetAllShipCountries();
             foreach (var country in shipCountries.Where(x => !x.CountryCode.Equals(global::Merchello.Core.Constants.CountryCodes.EverywhereElse)))

@@ -5,12 +5,18 @@ namespace Merchello.Core.Persistence.Mappers
 {
     internal sealed class ShipZoneMapper : MerchelloBaseMapper
     {
-        public ShipZoneMapper()
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ShipZoneMapper"/> class.
+		/// </summary>
+		public ShipZoneMapper()
         {
             BuildMap();
         }
 
-        internal override void BuildMap()
+		/// <summary>
+		/// Responsible for building the map between the class and the DTO.
+		/// </summary>
+		internal override void BuildMap()
         {
             if (!PropertyInfoCache.IsEmpty) return;
 

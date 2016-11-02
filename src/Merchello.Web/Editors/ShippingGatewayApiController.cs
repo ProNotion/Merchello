@@ -128,13 +128,13 @@
         /// The <see cref="ShipCountryDisplay"/>.
         /// </returns>        
         [AcceptVerbs("GET", "POST")]
-        public ShipCountryDisplay NewShipCountry(Guid catalogKey, string countryCode)
+        public ShipCountryDisplay NewShipCountry(Guid catalogKey, Guid zoneKey, string countryCode)
         {
             ShipCountry newShipCountry = null;
 
             try
             {
-                var attempt = ((ShipCountryService) _shipCountryService).CreateShipCountryWithKey(catalogKey, countryCode);
+                var attempt = ((ShipCountryService) _shipCountryService).CreateShipCountryWithKey(catalogKey, zoneKey, countryCode);
                 if (attempt.Success)
                 {
                     newShipCountry = attempt.Result as ShipCountry;

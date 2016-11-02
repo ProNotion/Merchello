@@ -42,7 +42,9 @@
 
             AutoMapper.Mapper.CreateMap<IShipCountry, ShipCountryDisplay>();
 
-            AutoMapper.Mapper.CreateMap<IShipMethod, ShipMethodDisplay>();
+			AutoMapper.Mapper.CreateMap<IShipZone, ShipZoneDisplay>();
+
+			AutoMapper.Mapper.CreateMap<IShipMethod, ShipMethodDisplay>();
 
             AutoMapper.Mapper.CreateMap<ShippingGatewayMethodBase, ShipMethodDisplay>()
                 .ForMember(dest => dest.Key, opt => opt.MapFrom(src => src.ShipMethod.Key))

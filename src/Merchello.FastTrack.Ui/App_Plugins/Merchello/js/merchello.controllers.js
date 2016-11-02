@@ -5599,7 +5599,7 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
             promiseWarehouses.then(function (warehouses) {
                 $scope.warehouses.push(warehouseDisplayBuilder.transform(warehouses));
                 changePrimaryWarehouse();
-                loadCountries();
+                loadZones();
                 //loadAllShipProviders();
             }, function (reason) {
                 notificationsService.error("Warehouses Load Failed", reason.message);
@@ -5773,7 +5773,7 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
          * @description
          * Opens the add country dialog via the Umbraco dialogService.
          */
-        function addCountry() {
+	    function addCountry(zoneKey) {
             var promiseAllCountries = settingsResource.getAllCountries();
             promiseAllCountries.then(function (allCountries) {
                 var countries = countryDisplayBuilder.transform(allCountries);
@@ -5801,6 +5801,7 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
                 var dialogData = dialogDataFactory.createAddShipCountryDialogData();
                 dialogData.availableCountries = availableCountries;
                 dialogData.selectedCountry = availableCountries[0];
+	            dialogData.zoneKey = zoneKey;
 
                 dialogService.open({
                     template: '/App_Plugins/Merchello/Backoffice/Merchello/Dialogs/shipping.addcountry.html',
@@ -5825,7 +5826,7 @@ angular.module('merchello').controller('Merchello.Backoffice.ShippingProvidersCo
         function addCountryDialogConfirm(dialogData) {
             $scope.preValuesLoaded = false;
             var catalogKey = $scope.selectedCatalog.key;
-            var promiseShipCountries = shippingGatewayProviderResource.newWarehouseCatalogShippingCountry(catalogKey, dialogData.selectedCountry.countryCode);
+            var promiseShipCountries = shippingGatewayProviderResource.newWarehouseCatalogShippingCountry(catalogKey, dialogData.zoneKey, dialogData.selectedCountry.countryCode);
             promiseShipCountries.then(function () {
                 loadCountries()
             }, function (reason) {
