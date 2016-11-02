@@ -23,8 +23,6 @@
 						<localize key="merchelloShipping_shipContriesInfo"></localize>
 						<a class="" data-ng-click="addZone()"><i class="icon icon-add"></i> <localize key="merchelloShipping_addZone"></localize></a>
 						<br />
-						<!-- ACTION: Add Country -->
-						<a class="" data-ng-click="addCountry()"><i class="icon icon-add"></i> <localize key="merchelloShipping_addCountry"></localize></a>
 					</div>
 					<div class="merchello-controls" data-ng-show="preValuesLoaded">
 						<div>
@@ -34,6 +32,8 @@
 				</div>
 				<div data-ng-repeat="zone in zones | orderBy: 'sortHelper'" class="merchello-shipping-zone">
 					<h3>{{zone.name}}</h3>
+					<!-- ACTION: Add Country -->
+					<a class="" data-ng-click="addCountry(zone.key)"><i class="icon icon-add"></i> <localize key="merchelloShipping_addCountry"></localize></a>
 					<div class="control-group umb-control-group">
 						<!-- Shipping Countries -->
 						<div data-ng-repeat="country in zone.countries | orderBy: 'sortHelper'" class="merchello-shipping-country">

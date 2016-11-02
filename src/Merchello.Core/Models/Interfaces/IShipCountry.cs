@@ -14,9 +14,18 @@
         [DataMember]
         Guid CatalogKey { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether or not this <see cref="IShipCountry"/> defines a province collection.
-        /// </summary>
-        bool HasProvinces { get; }
+		/// <summary>
+		/// Gets the zone key.
+		/// </summary>
+		/// <value>
+		/// The zone key.
+		/// </value>
+		[DataMember]
+		Guid ZoneKey { get; }
+
+		/// <summary>
+		/// Gets a value indicating whether or not this <see cref="IShipCountry"/> defines a province collection.
+		/// </summary>
+		bool HasProvinces { get; }
     }
 }

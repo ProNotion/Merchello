@@ -53,8 +53,9 @@ namespace Merchello.Tests.IntegrationTests.Workflow
             DbPreTestDataWorker.DeleteAllInvoices();
             
             DbPreTestDataWorker.DeleteAllShipCountries();
+			DbPreTestDataWorker.DeleteAllShipZones();
 
-            this.MakeProducts();
+			this.MakeProducts();
 
             var defaultWarehouse = DbPreTestDataWorker.WarehouseService.GetDefaultWarehouse();
             var defaultCatalog = defaultWarehouse.WarehouseCatalogs.FirstOrDefault();
