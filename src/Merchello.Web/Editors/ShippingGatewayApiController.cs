@@ -134,7 +134,7 @@
 
             try
             {
-                var attempt = ((ShipCountryService) _shipCountryService).CreateShipCountryWithKey(catalogKey, zoneKey, countryCode);
+                var attempt = ((ShipCountryService) _shipCountryService).CreateShipCountryWithKey(catalogKey, countryCode);
                 if (attempt.Success)
                 {
                     newShipCountry = attempt.Result as ShipCountry;
@@ -218,23 +218,6 @@
 			}
 
 			return newShipzone.ToShipZoneDisplay();
-		}
-
-		/// <summary>
-		/// Gets all ship zones.
-		/// </summary>
-		/// <param name="id">The identifier.</param>
-		/// <returns></returns>
-		/// <exception cref="HttpResponseException"></exception>
-		public IEnumerable<ShipZoneDisplay> GetAllShipZones(Guid id)
-		{
-			var zones = this._shipZoneService.GetShipZonesByCatalogKey(id);
-			if (zones == null)
-			{
-				throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
-			}
-
-			return zones.Select(zone => zone.ToShipZoneDisplay());
 		}
 
 		/// <summary>

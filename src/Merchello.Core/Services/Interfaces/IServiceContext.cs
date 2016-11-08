@@ -1,4 +1,6 @@
-﻿namespace Merchello.Core.Services
+﻿using Merchello.Core.Services.Interfaces;
+
+namespace Merchello.Core.Services
 {
     /// <summary>
     /// Defines the ServiceContext, which provides access to the following services:
@@ -29,7 +31,7 @@
         /// <summary>
         /// Gets the <see cref="IDigitalMediaService"/>.
         /// </summary>
-        IDigitalMediaService DigitalMediaService { get;  }
+        IDigitalMediaService DigitalMediaService { get; }
 
         /// <summary>
         /// Gets the <see cref="IEntityCollectionService"/>.
@@ -86,18 +88,23 @@
         /// </summary>
         IShipCountryService ShipCountryService { get; }
 
-		/// <summary>
-		/// Gets the ship zone service.
-		/// </summary>
-		/// <value>
-		/// The ship zone service.
-		/// </value>
-		IShipZoneService ShipZoneService { get; }
+        /// <summary>
+        /// Gets the <see cref="IShipZoneCountryService"/>
+        /// </summary>
+        IShipZoneCountryService ShipZoneCountryService { get; }
 
-		/// <summary>
-		/// Gets the <see cref="IStoreSettingService"/>
-		/// </summary>
-		IStoreSettingService StoreSettingService { get; }
+        /// <summary>
+        /// Gets the ship zone service.
+        /// </summary>
+        /// <value>
+        /// The ship zone service.
+        /// </value>
+        IShipZoneService ShipZoneService { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IStoreSettingService"/>
+        /// </summary>
+        IStoreSettingService StoreSettingService { get; }
 
         /// <summary>
         /// Gets the <see cref="IShipmentService"/>
@@ -110,5 +117,5 @@
         IWarehouseService WarehouseService { get; }
 
     }
-    
+
 }

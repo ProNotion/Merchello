@@ -177,8 +177,8 @@
 
             merchelloUrls.Add(
                 "merchelloShippingGatewayApiBaseUrl",
-                url.GetUmbracoApiServiceBaseUrl<ShippingGatewayApiController>(
-                controller => controller.GetShipCountry(Guid.NewGuid())));
+                url.GetUmbracoApiServiceBaseUrl<ShippingZoneGatewayApiController>(
+                controller => controller.GetShipZone(Guid.NewGuid())));
 
             merchelloUrls.Add(
                 "merchelloTaxationGatewayApiBaseUrl",

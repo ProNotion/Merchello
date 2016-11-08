@@ -107,7 +107,7 @@ namespace Merchello.Core.Services
 		/// The store setting service.
 		/// </param>
 		public ShipZoneCountryService(IDatabaseUnitOfWorkProvider provider, RepositoryFactory repositoryFactory, ILogger logger, IEventMessagesFactory eventMessagesFactory, IStoreSettingService storeSettingService)
-            : base(provider, repositoryFactory, logger, eventMessagesFactory)
+            : base(provider, repositoryFactory, logger, storeSettingService)
         {
 			Mandate.ParameterNotNull(storeSettingService, "storeSettingService");
 			_storeSettingService = storeSettingService;
@@ -157,12 +157,56 @@ namespace Merchello.Core.Services
 			return Attempt<IShipCountry>.Succeed(shipCountry);
 		}
 
-		#region Event Handlers
+        internal Attempt<IShipCountry> CreateShipCountryWithKey(Guid warehouseCatalogKey, Guid zoneKey, string countryCode, bool raiseEvents = true)
+        {
+            Ensure.ParameterCondition(warehouseCatalogKey != Guid.Empty, "warehouseCatalog");
+            Ensure.ParameterCondition(zoneKey != Guid.Empty, "zoneKey");
+            Ensure.ParameterCondition(!string.IsNullOrEmpty(countryCode), "countryCode");
 
-		/// <summary>
-		/// Occurs after Create
-		/// </summary>
-		public static event TypedEventHandler<IShipCountryService, Events.NewEventArgs<IShipCountry>> Creating;
+            var country = _storeSettingService.GetCountryByCode(countryCode);
+
+            if (country == null) return Attempt<IShipCountry>.Fail(new ArgumentNullException("country"));
+
+            var shipCountry = new ShipCountry(warehouseCatalogKey, zoneKey, country);
+
+            if (raiseEvents)
+                if (Creating.IsRaisedEventCancelled(new Events.NewEventArgs<IShipCountry>(shipCountry), this))
+                {
+                    shipCountry.WasCancelled = true;
+                    return Attempt<IShipCountry>.Fail(shipCountry);
+                }
+
+            // verify that a ShipCountry does not already exist for this pair
+
+            var sc = GetShipCountriesByCatalogKey(warehouseCatalogKey).FirstOrDefault(x => x.CountryCode.Equals(country.CountryCode));
+            if (sc != null)
+                return
+                    Attempt<IShipCountry>.Fail(
+                        new ConstraintException("A ShipCountry with CountryCode '" + country.CountryCode +
+                                                "' is already associate with this WarehouseCatalog"));
+
+            using (new WriteLock(Locker))
+            {
+                var uow = UowProvider.GetUnitOfWork();
+                using (var repository = RepositoryFactory.CreateShipCountryRepository(uow, _storeSettingService))
+                {
+                    repository.AddOrUpdate(shipCountry);
+                    uow.Commit();
+                }
+            }
+
+            if (raiseEvents)
+                Created.RaiseEvent(new Events.NewEventArgs<IShipCountry>(shipCountry), this);
+
+            return Attempt<IShipCountry>.Succeed(shipCountry);
+        }
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Occurs after Create
+        /// </summary>
+        public static event TypedEventHandler<IShipCountryService, Events.NewEventArgs<IShipCountry>> Creating;
 
 
 		/// <summary>

@@ -1,4 +1,6 @@
-﻿namespace Merchello.Core.Services
+﻿using Merchello.Core.Services.Interfaces;
+
+namespace Merchello.Core.Services
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
@@ -147,10 +149,15 @@
         /// </summary>
         private Lazy<IShipCountryService> _shipCountryService;
 
-		/// <summary>
-		/// The ship zone service
-		/// </summary>
-		private Lazy<IShipZoneService> _shipZoneService;
+        /// <summary>
+        /// The ship zone country service.
+        /// </summary>
+        private Lazy<IShipZoneCountryService> _shipZoneCountryService;
+
+        /// <summary>
+        /// The ship zone service
+        /// </summary>
+        private Lazy<IShipZoneService> _shipZoneService;
 
 		/// <summary>
 		/// The ship method service.
@@ -366,7 +373,15 @@
             get { return _shipCountryService.Value; }
         }
 
-		public IShipZoneService ShipZoneService
+        /// <summary>
+        /// Gets the <see cref="IShipZoneCountryService"/>
+        /// </summary>
+        public IShipZoneCountryService ShipZoneCountryService
+        {
+            get { return _shipZoneCountryService.Value; }
+        }
+
+        public IShipZoneService ShipZoneService
 		{
 			get { return _shipZoneService.Value; }
 		}
@@ -576,7 +591,10 @@
             if (_shipCountryService == null)
                 _shipCountryService = new Lazy<IShipCountryService>(() => new ShipCountryService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory, _storeSettingsService.Value));
 
-			if (_shipZoneService == null)
+            if (_shipZoneCountryService == null)
+                _shipZoneCountryService = new Lazy<IShipZoneCountryService>(() => new ShipZoneCountryService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory, _storeSettingsService.Value));
+
+            if (_shipZoneService == null)
 				_shipZoneService = new Lazy<IShipZoneService>(() => new ShipZoneService(dbDatabaseUnitOfWorkProvider, repositoryFactory, logger, eventMessagesFactory, _storeSettingsService.Value));
 
 			if (_shipMethodService == null)
