@@ -166,6 +166,11 @@
             {
                 return new Version(2, 3, 1);
             }
+			
+			if (!this.ValidTables.Contains("merchShipZone") || !this.ValidColumns.Contains("merchShipCountry,shipZoneKey"))
+			{
+				return new Version(2, 3, 1);
+			}
 
 			// If Errors is empty or if TableDefinitions tables + columns correspond to valid tables + columns then we're at current version
 			if (this.MerchelloErrors.Any() == false ||

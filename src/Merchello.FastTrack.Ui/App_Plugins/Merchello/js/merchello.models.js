@@ -5303,7 +5303,7 @@ angular.module('merchello.models').factory('merchelloTabsFactory',
                 tabs.addTab("salesByItem", "merchelloTabs_salesByItem", '#/merchello/merchello/salesByItem/manage');
                 tabs.addTab("abandonedBasket", "merchelloTabs_abandonedBasket", '#/merchello/merchello/abandonedBasket/manage');
                 // throw event here:
-
+                tabs.addTab("abandonedBasketDetails", "merchelloTabs_abandonedBasketDetails", '#/merchello/merchello/abandonedBasketDetails/manage');
                 return tabs;
             }
 

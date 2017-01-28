@@ -609,9 +609,9 @@
   </area>
   <area alias="merchelloShippingZone">
     <key alias="addZone">Add a Zone</key>
-    <key alias="typeZoneName" >Type your Zone Name</key>
-	</area>
-	<area alias="merchelloShippingWarehouse">
+    <key alias="typeZoneName">Type your Zone Name</key>
+  </area>
+  <area alias="merchelloShippingWarehouse">
     <key alias="deleteComfirm" >Are you sure you want to remove the warehouse</key>
     <key alias="address">Address</key>
     <key alias="primaryWarehouse" >Primary Warehouse</key>
